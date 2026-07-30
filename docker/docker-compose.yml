@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: lead-postgres
+
+    environment:
+      POSTGRES_USER: lead-postgres
+      POSTGRES_PASSWORD: leadpostgres123
+      POSTGRES_DB: lead_mng_system
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
