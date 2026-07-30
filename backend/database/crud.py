@@ -1,4 +1,5 @@
-from database.connection import get_connection
+from backend.database.connection import get_connection
+from backend.models.schemas import Lead
 
 
 def create_lead(lead):

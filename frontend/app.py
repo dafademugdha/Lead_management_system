@@ -1,4 +1,12 @@
+import os
+import sys
+
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
+
 import streamlit as st
+from backend.main import save_lead
 
 # ==========================================================
 # PAGE CONFIGURATION
@@ -149,25 +157,41 @@ if submitted:
     # SUCCESS
     # ======================================================
     else:
+        try:
+            response = save_lead(
+            name=name,
+            mobile=mobile,
+            city=city,
+            land_size=land_size,
+            budget=budget
+            )
 
-        st.success("✅ Lead information captured successfully!")
+            if response["status"] == "success":
 
-        st.markdown("## 📋 Lead Summary")
+                st.success(response["message"])
 
-        with st.container(border=True):
+                st.markdown("## 📋 Lead Summary")
 
-            col1, col2 = st.columns(2)
+                with st.container(border=True):
 
-            with col1:
-                st.subheader("👤 Personal Details")
-                st.write(f"**Name:** {name}")
-                st.write(f"**Mobile:** {mobile}")
+                    col1, col2 = st.columns(2)
 
-            with col2:
-                st.subheader("🌾 Farm Details")
-                st.write(f"**Nearest City:** {city}")
-                st.write(f"**Land Size:** {land_size} Acres")
-                st.write(f"**Budget:** ₹ {budget:,}")
+                    with col1:
+                        st.subheader("👤 Personal Details")
+                        st.write(f"**Name:** {name}")
+                        st.write(f"**Mobile:** {mobile}")
+
+                    with col2:
+                        st.subheader("🌾 Farm Details")
+                        st.write(f"**Nearest City:** {city}")
+                        st.write(f"**Land Size:** {land_size} Acres")
+                        st.write(f"**Budget:** ₹ {budget:,}")
+
+            else:
+                st.error(response["message"])
+
+        except Exception as e:
+            st.error(str(e)) 
 
 # ==========================================================
 # FOOTER

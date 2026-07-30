@@ -1,5 +1,5 @@
-from models.schemas import Lead
-from services.lead_service import create_new_lead
+from backend.models.schemas import Lead
+from backend.services.lead_service import create_new_lead
 
 
 def save_lead(name, mobile, city, land_size, budget):
