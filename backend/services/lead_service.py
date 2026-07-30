@@ -1,4 +1,4 @@
-from database.crud import create_lead
+from backend.database.crud import create_lead
 
 def create_new_lead(lead):
 
