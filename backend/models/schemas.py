@@ -1,11 +1,19 @@
 from pydantic import BaseModel, Field, field_validator
+from typing import Optional
 
 class Lead(BaseModel):
-    name: str = Field(..., min_length=2)
-    mobile_number: str
+    name: str
+    location: str
     nearest_city: str
-    land_size: float = Field(..., gt=0)
-    budget: int = Field(..., gt=0)
+    mobile_number: str
+    whatsapp_number: str
+    land_size: float
+    current_farm_status: str
+    existing_income: float
+    monthly_maintenance_cost: float
+    budget: float
+    tech_comfort: str
+    nature_interest: str
 
     @field_validator("name")
     @classmethod
